@@ -1,6 +1,6 @@
 # Sex or No Sex
 
-A deliberately direct, one-phone game for 2–50 consenting adults. Each person answers privately. The app reveals only reciprocal YES pairs, or a simple NO SEX result. A result never removes anyone's right to change their mind.
+A deliberately direct, one-phone game for 2–50 consenting adults. Each person answers privately. After everyone finishes, the phone is passed around again so each person sees only their own reciprocal YES matches, or a simple NO SEX result. A result never removes anyone's right to change their mind.
 
 Everything runs in the browser. Answers stay in React memory and disappear on refresh or **Start Over**. There is no backend, account, analytics, storage, or answer network request.
 
@@ -47,4 +47,4 @@ For a root custom domain, use `VITE_BASE_PATH=/`. The path must begin and end wi
 
 ## Privacy
 
-The app does not save individual answers. Keep the phone with the person whose turn it is. Refreshing the page clears the current session. Only mutual YES pairs are shown for groups; the two-person result never identifies who chose NO.
+The app does not save individual answers. Keep the phone with the person whose turn it is. Refreshing the page clears the current session. Each result is hidden before the next person receives the phone; no one sees other people's matches. The two-person result never identifies who chose NO. Answers are cleared after the last private result is hidden.

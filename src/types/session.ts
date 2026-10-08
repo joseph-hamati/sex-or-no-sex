@@ -21,4 +21,6 @@ export type AppStage =
   | 'participant-names'
   | 'pass-phone'
   | 'questions'
-  | 'results'
+  | 'result-pass-phone'
+  | 'private-results'
+  | 'complete'

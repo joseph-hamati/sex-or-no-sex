@@ -22,3 +22,15 @@ export function findMutualMatches(participants: Participant[], answers: Answer[]
   }
   return matches
 }
+
+export function findMutualPartners(
+  participantId: string,
+  participants: Participant[],
+  answers: Answer[],
+): Participant[] {
+  return findMutualMatches(participants, answers).flatMap(({ first, second }) => {
+    if (first.id === participantId) return [second]
+    if (second.id === participantId) return [first]
+    return []
+  })
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Answer, Participant } from '../types/session'
-import { findMutualMatches } from './matching'
+import { findMutualMatches, findMutualPartners } from './matching'
 
 const people: Participant[] = [
   { id: 'j', name: 'Joseph' },
@@ -46,5 +46,16 @@ describe('findMutualMatches', () => {
   it('does not duplicate a pair when answers repeat', () => {
     const answers = [answer('j', 'n', true), answer('n', 'j', true), answer('j', 'n', true)]
     expect(findMutualMatches(people.slice(0, 2), answers)).toHaveLength(1)
+  })
+
+  it('shows a person only their own mutual partners', () => {
+    const answers = [
+      answer('j', 's', true), answer('s', 'j', true),
+      answer('n', 'm', true), answer('m', 'n', true),
+      answer('j', 'n', true), answer('n', 'j', false),
+    ]
+    expect(findMutualPartners('j', people, answers)).toEqual([people[2]])
+    expect(findMutualPartners('n', people, answers)).toEqual([people[3]])
+    expect(findMutualPartners('s', people, answers)).toEqual([people[0]])
   })
 })

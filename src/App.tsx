@@ -6,8 +6,9 @@ import { ParticipantNames } from './pages/ParticipantNames'
 import { PassPhoneScreen } from './pages/PassPhoneScreen'
 import { QuestionScreen } from './pages/QuestionScreen'
 import { ResultsScreen } from './pages/ResultsScreen'
+import { CompleteScreen } from './pages/CompleteScreen'
 import type { Answer, AppStage, Participant } from './types/session'
-import { findMutualMatches } from './utils/matching'
+import { findMutualPartners } from './utils/matching'
 
 function App() {
   const [stage, setStage] = useState<AppStage>('landing')
@@ -30,7 +31,18 @@ function App() {
       setCurrentIndex(currentIndex + 1)
       setStage('pass-phone')
     } else {
-      setStage('results')
+      setCurrentIndex(0)
+      setStage('result-pass-phone')
+    }
+  }
+
+  function hideResult() {
+    if (currentIndex + 1 < participants.length) {
+      setCurrentIndex(currentIndex + 1)
+      setStage('result-pass-phone')
+    } else {
+      setAnswers([])
+      setStage('complete')
     }
   }
 
@@ -40,7 +52,9 @@ function App() {
   if (stage === 'participant-names') return <ParticipantNames count={count} onComplete={(people) => { setParticipants(people); setCurrentIndex(0); setStage('pass-phone') }} />
   if (stage === 'pass-phone') return <PassPhoneScreen participant={participants[currentIndex]} turn={currentIndex + 1} total={participants.length} onReady={() => setStage('questions')} />
   if (stage === 'questions') return <QuestionScreen key={participants[currentIndex].id} participant={participants[currentIndex]} participants={participants} onLock={lockAnswers} />
-  return <ResultsScreen participantCount={participants.length} matches={findMutualMatches(participants, answers)} onStartOver={startOver} />
+  if (stage === 'result-pass-phone') return <PassPhoneScreen phase="results" participant={participants[currentIndex]} turn={currentIndex + 1} total={participants.length} onReady={() => setStage('private-results')} />
+  if (stage === 'private-results') return <ResultsScreen participantCount={participants.length} partners={findMutualPartners(participants[currentIndex].id, participants, answers)} onDone={hideResult} isLast={currentIndex === participants.length - 1} />
+  return <CompleteScreen onStartOver={startOver} />
 }
 
 export default App
