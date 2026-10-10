@@ -1,4 +1,4 @@
-# Sex or No Sex
+# BIG game
 
 A deliberately direct, one-phone game for 2–50 consenting adults. Each person answers privately. After everyone finishes, the phone is passed around again so each person sees only their own reciprocal YES matches, or a simple NO SEX result. A result never removes anyone's right to change their mind.
 
